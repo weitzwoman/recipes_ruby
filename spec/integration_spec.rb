@@ -22,6 +22,12 @@ describe('the add category route', {:type => :feature}) do
     click_button("Update Name")
     expect(page).to have_content("DESSERTS")
   end
+  it('will delete category') do
+    test_category = Category.create(:name => "THAI")
+    visit("/categories/#{test_category.id}")
+    click_button("Delete Category")
+    expect(page).to_not have_content("THAI")
+  end
 end
 
 describe('the add recipe route', {:type => :feature}) do
