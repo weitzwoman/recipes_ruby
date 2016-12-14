@@ -47,4 +47,11 @@ describe('the add recipe route', {:type => :feature}) do
     click_button("Update Recipe")
     expect(page).to have_content("Baked Grease Chips")
   end
+
+  it('deletes a recipe') do
+    test_recipe = Recipe.create(:name => "Meat", :ingredients => "meat", :instructions => "cook to 165")
+    visit("/recipes/#{test_recipe.id}")
+    click_button("Delete Recipe")
+    expect(page).to_not have_content('Meat')
+  end
 end
