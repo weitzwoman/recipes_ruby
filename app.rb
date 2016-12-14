@@ -17,7 +17,7 @@ get('/sort') do
 end
 
 post('/categories') do
-  @new_category = Category.new(:name => params['name'])
+  @new_category = Category.new(:name => params['category_name'])
   if @new_category.save()
     redirect('/categories/'.concat(@new_category.id().to_s()))
   else
