@@ -5,8 +5,8 @@ require('pry')
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
 get('/') do
-  #all categories
-  #all recipes
+  @categories = Category.all()
+  @recipes = Recipe.all()
   erb(:index)
 end
 
