@@ -22,6 +22,15 @@
   </div>
   <div class="col-md-6">
     <form action="/categories/<%= @category.id() %>" method="post">
+      <input type="hidden" name="_method" value="patch">
+      <div class="form-group">
+        <input class="form-control" id="new_category" name="new_category" placeholder="Update Category Name">
+      </div>
+      <button type="submit" class="btn btn-success">Update Name</button>
+    </form>
+    <br>
+    <br>
+    <form action="/categories/<%= @category.id() %>" method="post">
       <input type="hidden" name="_method" value="delete">
       <button type="submit" class="btn btn-danger">Delete Category</button>
     </form>

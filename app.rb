@@ -73,3 +73,27 @@ delete('/categories/:id') do
   @category.destroy()
   redirect('/')
 end
+
+patch('/categories/:id') do
+  @category = Category.find(params['id'].to_i())
+  @category.update({:name => params['new_category']})
+  redirect('/categories/'.concat(@category.id().to_s()))
+end
+
+patch('/recipes/:id') do
+  @recipe = Recipe.find(params['id'].to_i())
+  name = params['name']
+  ingredients = params['ingredients']
+  instructions = params['instructions']
+  if name == ''
+    name = @recipe.name()
+  end
+  if ingredients == ''
+    ingredients = @recipe.ingredients()
+  end
+  if instructions == ''
+    instructions = @recipe.instructions()
+  end
+  @recipe.update({:name => name, :ingredients => ingredients, :instructions => instructions})
+  redirect('/recipes/'.concat(@recipe.id().to_s()))
+end
