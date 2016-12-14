@@ -7,4 +7,10 @@ describe(Category) do
     test_category = Category.new({:name => ""})
     expect(test_category.save()).to(eq(false))
   end
+  it('validates uniqueness of category name') do
+    test_category = Category.new({:name => 'Hearty'})
+    test_category.save()
+    test_category1 = Category.new({:name => 'Hearty'})
+    expect(test_category1.save()).to(eq(false))
+  end
 end
