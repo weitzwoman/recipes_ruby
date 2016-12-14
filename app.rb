@@ -15,7 +15,8 @@ post('/categories') do
   if @new_category.save()
     redirect('/categories/'.concat(@new_category.id().to_s()))
   else
-    erb(:index)
+    @category = @new_category
+    erb(:errors)
   end
 end
 
@@ -30,7 +31,8 @@ post('/recipes') do
   if @new_recipe.save()
     redirect('/recipes/'.concat(@new_recipe.id().to_s()))
   else
-    erb(:index)
+    @recipe = @new_recipe
+    erb(:errors)
   end
 end
 
