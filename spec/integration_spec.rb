@@ -62,4 +62,13 @@ describe('the add recipe route', {:type => :feature}) do
     click_button('Add Rating')
     expect(page).to have_content('2 Stars')
   end
+
+  it('adds a category to a recipe') do
+    test_category = Category.create(:name => "SWEETS")
+    test_recipe = Recipe.create(:name => "Pie", :ingredients => "love", :instructions => "bake it")
+    visit("/recipes/#{test_recipe.id}")
+    check('SWEETS')
+    click_button('Add Category')
+    expect(page).to have_content('SWEETS')
+  end
 end
