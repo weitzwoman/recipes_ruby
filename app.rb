@@ -20,6 +20,7 @@ post('/categories') do
 end
 
 get('/categories/:id') do
+  @recipes = Recipe.all()
   @category = Category.find(params['id'].to_i())
   erb(:category)
 end
@@ -42,12 +43,21 @@ end
 post('/recipes/:id') do
   @recipe = Recipe.find(params['id'].to_i())
   category_ids = params['category_ids']
-  # @recipe.update({:category_ids => category_ids})
-
   category_ids.each() do |category_id|
     category = Category.find(category_id)
     @recipe.categories.push(category)
   end
   @categories = Category.all()
   erb(:recipe)
+end
+
+post('/categories/:id') do
+  @category = Category.find(params['id'].to_i())
+  recipe_ids = params['recipe_ids']
+  recipe_ids.each() do |recipe_id|
+    recipe = Recipe.find(recipe_id)
+    @category.recipes.push(recipe)
+  end
+  @recipes = Recipe.all()
+  erb(:category)
 end
