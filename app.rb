@@ -35,5 +35,19 @@ end
 
 get('/recipes/:id') do
   @recipe = Recipe.find(params['id'].to_i())
+  @categories = Category.all()
+  erb(:recipe)
+end
+
+post('/recipes/:id') do
+  @recipe = Recipe.find(params['id'].to_i())
+  category_ids = params['category_ids']
+  # @recipe.update({:category_ids => category_ids})
+
+  category_ids.each() do |category_id|
+    category = Category.find(category_id)
+    @recipe.categories.push(category)
+  end
+  @categories = Category.all()
   erb(:recipe)
 end
