@@ -15,6 +15,13 @@ describe('the add category route', {:type => :feature}) do
     click_button("Add Recipe")
     expect(page).to have_content("Cake")
   end
+  it('will update name in given category') do
+    test_category = Category.create(:name => "SWEETS")
+    visit("/categories/#{test_category.id}")
+    fill_in('new_category', :with => "DESSERTS")
+    click_button("Update Name")
+    expect(page).to have_content("DESSERTS")
+  end
 end
 
 describe('the add recipe route', {:type => :feature}) do
