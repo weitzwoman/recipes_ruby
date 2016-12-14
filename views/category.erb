@@ -11,11 +11,13 @@
     <form action="/categories/<%= @category.id() %>" method="post">
       <h4>Add recipes to this category:</h4>
       <% @recipes.each() do |recipe| %>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" name="recipe_ids[]" value="<%= recipe.id() %>"><%= recipe.name() %>
-          </label>
-        </div>
+        <% unless recipe.category_ids.include?(@category.id()) %>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="recipe_ids[]" value="<%= recipe.id() %>"><%= recipe.name() %>
+            </label>
+          </div>
+        <% end %>
       <% end %>
       <button type="submit" class="btn btn-warning">Add Recipe</button>
     </form>

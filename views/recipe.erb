@@ -16,11 +16,13 @@
       <!-- <input type="hidden" name="_method" value="patch"> -->
       <h4>Add which categories this recipe belongs to:</h4>
       <% @categories.each() do |category| %>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" name="category_ids[]" value="<%= category.id() %>"><%= category.name() %>
-          </label>
-        </div>
+        <% unless category.recipe_ids.include?(@recipe.id()) %>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="category_ids[]" value="<%= category.id() %>"><%= category.name() %>
+            </label>
+          </div>
+        <% end %>
       <% end %>
       <button type="submit" class="btn btn-warning">Add Category</button>
     </form>
