@@ -72,3 +72,14 @@ describe('the add recipe route', {:type => :feature}) do
     expect(page).to have_content('SWEETS')
   end
 end
+
+describe('the sort route', {:type => :feature}) do
+  it('will sort the recipes by rating') do
+    test_recipe = Recipe.create(:rating => 1, :name => "Pie", :ingredients => "love", :instructions => "bake it")
+    test_recipe1 = Recipe.create(:rating => 2, :name => "Ham", :ingredients => "love", :instructions => "bake it")
+    test_recipe2 = Recipe.create(:rating => 3, :name => "Stew", :ingredients => "love", :instructions => "bake it")
+    visit('/')
+    click_button('Sort by Rating')
+    expect(page).to have_content('Stew (3 Stars) Ham (2 Stars) Pie (1 Stars)')
+  end
+end
