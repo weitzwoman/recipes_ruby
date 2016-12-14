@@ -61,3 +61,9 @@ post('/categories/:id') do
   @recipes = Recipe.all()
   erb(:category)
 end
+
+delete('/') do
+  @recipe = Recipe.find(params['recipe_id'].to_i())
+  @recipe.destroy()
+  redirect('/')
+end

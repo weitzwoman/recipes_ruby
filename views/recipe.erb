@@ -1,27 +1,39 @@
 <h3><%= @recipe.name() %></h3>
+<div class="row">
+  <div class="col-md-6">
+    <h4>Ingredients: </h4><h6><%= @recipe.ingredients() %></h6>
 
-<h4>Ingredients: </h4><h6><%= @recipe.ingredients() %></h6>
+    <h4>Instructions: </h4><h6><%= @recipe.instructions() %></h6>
 
-<h4>Instructions: </h4><h6><%= @recipe.instructions() %></h6>
+    <h4>Categories:</h4>
+    <ul>
+      <% @recipe.categories.each() do |category| %>
+      <li><%= category.name() %></li>
+      <% end %>
+    </ul>
 
-<h4>Categories:</h4>
-<ul>
-  <% @recipe.categories.each() do |category| %>
-  <li><%= category.name() %></li>
-  <% end %>
-</ul>
+    <form action="/recipes/<%= @recipe.id() %>" method="post">
+      <!-- <input type="hidden" name="_method" value="patch"> -->
+      <h4>Add which categories this recipe belongs to:</h4>
+      <% @categories.each() do |category| %>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="category_ids[]" value="<%= category.id() %>"><%= category.name() %>
+          </label>
+        </div>
+      <% end %>
+      <button type="submit" class="btn btn-warning">Add Category</button>
+    </form>
+  </div>
+  <div class="col-md-6">
+    update
 
-<form action="/recipes/<%= @recipe.id() %>" method="post">
-  <!-- <input type="hidden" name="_method" value="patch"> -->
-  <h4>Add which categories this recipe belongs to:</h4>
-  <% @categories.each() do |category| %>
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" name="category_ids[]" value="<%= category.id() %>"><%= category.name() %>
-      </label>
-    </div>
-  <% end %>
-  <button type="submit" class="btn btn-warning">Add Category</button>
-</form>
+    <form action="/" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <input type="hidden" name="recipe_id" value="<%= @recipe.id() %>">
+      <button type="submit" class="btn btn-danger">Delete Recipe</button>
+    </form>
+  </div>
+</div>
 <br>
 <a href='/'>Return to Homepage</a>
