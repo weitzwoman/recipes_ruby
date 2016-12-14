@@ -14,4 +14,9 @@ describe(Recipe) do
     test_recipe1 = Recipe.new({:name => 'Mac and Cheese'})
     expect(test_recipe1.save()).to(eq(false))
   end
+
+  it('capitalizes all words of a recipe name') do
+    test_recipe = Recipe.create({:name => 'fish tacos', :ingredients => "fish", :instructions => "eat it"})
+    expect(test_recipe.name()).to(eq('Fish Tacos'))
+  end
 end

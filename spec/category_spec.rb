@@ -13,4 +13,9 @@ describe(Category) do
     test_category1 = Category.new({:name => 'Hearty'})
     expect(test_category1.save()).to(eq(false))
   end
+
+  it('capitalizes a new category') do
+    test_category = Category.create({:name => 'mexican'})
+    expect(test_category.name()).to(eq('MEXICAN'))
+  end
 end
