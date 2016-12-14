@@ -54,4 +54,12 @@ describe('the add recipe route', {:type => :feature}) do
     click_button("Delete Recipe")
     expect(page).to_not have_content('Meat')
   end
+
+  it('adds a rating to a recipe') do
+    test_recipe = Recipe.create(:name => "Sandwich", :ingredients => "bread and such", :instructions => "layer")
+    visit("/recipes/#{test_recipe.id}")
+    choose('2 (weeknight)')
+    click_button('Add Rating')
+    expect(page).to have_content('2 Stars')
+  end
 end
