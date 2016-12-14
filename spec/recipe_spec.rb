@@ -19,4 +19,12 @@ describe(Recipe) do
     test_recipe = Recipe.create({:name => 'fish tacos', :ingredients => "fish", :instructions => "eat it"})
     expect(test_recipe.name()).to(eq('Fish Tacos'))
   end
+
+  # describe('.rating_sort') do
+  #   it('sorts the recipes by rating descending') do
+  #     test_recipe = Recipe.create({:name => 'Bad Cookies', :rating => 1})
+  #     test_recipe1 = Recipe.create({:name => 'Cheesy Potatoes', :rating => 2})
+  #     expect(Recipe.rating_sort()).to(eq([test_recipe1, test_recipe]))
+  #   end
+  # end
 end

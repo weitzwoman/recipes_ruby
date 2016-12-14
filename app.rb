@@ -10,6 +10,12 @@ get('/') do
   erb(:index)
 end
 
+get('/sort') do
+  @recipes = Recipe.order(rating: :desc)
+  @categories = Category.all()
+  erb(:index)
+end
+
 post('/categories') do
   @new_category = Category.new(:name => params['name'])
   if @new_category.save()
