@@ -23,3 +23,17 @@ get('/categories/:id') do
   @category = Category.find(params['id'].to_i())
   erb(:category)
 end
+
+post('/recipes') do
+  @new_recipe = Recipe.new(:name => params['name'], :ingredients => params['ingredients'], :instructions => params['instructions'])
+  if @new_recipe.save()
+    redirect('/recipes/'.concat(@new_recipe.id().to_s()))
+  else
+    erb(:index)
+  end
+end
+
+get('/recipes/:id') do
+  @recipe = Recipe.find(params['id'].to_i())
+  erb(:recipe)
+end

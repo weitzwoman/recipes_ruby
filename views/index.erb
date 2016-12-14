@@ -1,7 +1,26 @@
-<form action="/categories" method="post">
-  <label for="new_category">Add a new category</label>
-  <div class="form-group">
-    <input id='name' name="name" placeholder="Name">
+<div class="row">
+  <div class="col-md-6">
+    <form action="/categories" method="post">
+      <label for="new_category">Add a new Category</label>
+      <div class="form-group">
+        <input id='name' name="name" placeholder="Name">
+      </div>
+      <button type="submit" class="btn btn-warning">Add Category</button>
+    </form>
   </div>
-  <button type="submit" class="btn btn-info">Add</button>
-</form>
+  <div class="col-md-6">
+    <form action="/recipes" method="post">
+      <label for="new_recipe">Add a new Recipe</label>
+      <div class="form-group">
+        <input id='name' name="name" placeholder="Dish">
+      </div>
+      <div class="form-group">
+        <input id='ingredients' name="ingredients" placeholder="List All Ingredients">
+      </div>
+      <div class="form-group">
+        <input id='instructions' name="instructions" placeholder="Instructions">
+      </div>
+      <button type="submit" class="btn btn-warning">Add Recipe</button>
+    </form>
+  </div>
+</div>
