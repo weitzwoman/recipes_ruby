@@ -1,4 +1,5 @@
 <h3><%= @recipe.name() %></h3>
+<h4 style='color:tomato'><%= @recipe.rating() %> Stars</h4>
 <div class="row">
   <div class="col-md-6">
     <h4>Ingredients: </h4><h6><%= @recipe.ingredients() %></h6>
@@ -41,7 +42,23 @@
       </div>
       <button type="submit" class="btn btn-success">Update Recipe</button>
     </form>
-    <br>
+    <form action="/ratings/<%= @recipe.id() %>" method="post">
+      <input type="hidden" name="_method" value="post">
+      <div class="radio">
+        <label>
+          <input type="radio" id="opt3" name="ratings" value="3"> 3 (super tasty)
+        </label>
+        <br>
+        <label>
+          <input type="radio" id="opt2" name="ratings" value="2" checked> 2 (weeknight)
+        </label>
+        <br>
+        <label>
+          <input type="radio" id="opt1" name="ratings" value="1"> 1 (not tasty)
+        </label>
+      </div>
+      <button type="submit" class="btn btn-info">Add Rating</button>
+    </form>
     <br>
     <form action="/recipes/<%= @recipe.id() %>" method="post">
       <input type="hidden" name="_method" value="delete">

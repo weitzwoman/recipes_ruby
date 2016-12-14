@@ -99,3 +99,9 @@ patch('/recipes/:id') do
   @recipe.update({:name => name, :ingredients => ingredients, :instructions => instructions})
   redirect('/recipes/'.concat(@recipe.id().to_s()))
 end
+
+post('/ratings/:id') do
+  @recipe = Recipe.find(params['id'].to_i())
+  @recipe.update({:rating => params['ratings'].to_i()})
+  redirect('/recipes/'.concat(@recipe.id().to_s()))
+end
