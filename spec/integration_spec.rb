@@ -40,7 +40,11 @@ describe('the add recipe route', {:type => :feature}) do
     expect(page).to have_content('Sushi')
   end
 
-  # it('update') do
-  #
-  # end
+  it('update recipe name') do
+    test_recipe = Recipe.create(:name => "Nachos", :ingredients => "chips", :instructions => "bake it")
+    visit("/recipes/#{test_recipe.id}")
+    fill_in('name', :with => "Baked Grease Chips")
+    click_button("Update Recipe")
+    expect(page).to have_content("Baked Grease Chips")
+  end
 end
