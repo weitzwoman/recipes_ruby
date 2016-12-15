@@ -1,7 +1,7 @@
 class Recipe < ActiveRecord::Base
   has_and_belongs_to_many(:categories)
+  has_and_belongs_to_many(:ingredients)
   validates(:name, :presence => true, :uniqueness => {:case_sensitive => false})
-  validates(:ingredients, :presence => true)
   validates(:instructions, :presence => true)
   before_save(:titleize_recipe)
 

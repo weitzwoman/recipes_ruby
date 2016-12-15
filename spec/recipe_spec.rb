@@ -9,7 +9,7 @@ describe(Recipe) do
   it { should validate_uniqueness_of(:name)}
 
   it('capitalizes all words of a recipe name') do
-    test_recipe = Recipe.create({:name => 'fish tacos', :ingredients => "fish", :instructions => "eat it"})
+    test_recipe = Recipe.create({:name => 'fish tacos', :instructions => "eat it"})
     expect(test_recipe.name()).to(eq('Fish Tacos'))
   end
 end
