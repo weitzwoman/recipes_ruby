@@ -5,12 +5,14 @@ require('pry')
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
 get('/') do
+  @ingredients = Ingredient.all()
   @categories = Category.all()
   @recipes = Recipe.all()
   erb(:index)
 end
 
 get('/sort') do
+  @ingredients = Ingredient.all()
   @recipes = Recipe.order(rating: :desc)
   @categories = Category.all()
   erb(:index)
@@ -32,8 +34,24 @@ get('/categories/:id') do
   erb(:category)
 end
 
+post('/ingredients') do
+  @new_ingredient = Ingredient.new(:name => params['ingredient_name'])
+  if @new_ingredient.save()
+    redirect('/ingredients/'.concat(@new_ingredient.id().to_s()))
+  else
+    @ingredient = @new_ingredient
+    erb(:errors)
+  end
+end
+
+get('/ingredients/:id') do
+  @ingredient = Ingredient.find(params['id'].to_i())
+  erb(:ingredient)
+end
+
+
 post('/recipes') do
-  @new_recipe = Recipe.new(:name => params['name'], :ingredients => params['ingredients'], :instructions => params['instructions'])
+  @new_recipe = Recipe.new(:name => params['name'], :instructions => params['instructions'])
   if @new_recipe.save()
     redirect('/recipes/'.concat(@new_recipe.id().to_s()))
   else
@@ -91,7 +109,6 @@ end
 patch('/recipes/:id') do
   @recipe = Recipe.find(params['id'].to_i())
   name = params['name']
-  ingredients = params['ingredients']
   instructions = params['instructions']
   if name == ''
     name = @recipe.name()
@@ -102,7 +119,7 @@ patch('/recipes/:id') do
   if instructions == ''
     instructions = @recipe.instructions()
   end
-  @recipe.update({:name => name, :ingredients => ingredients, :instructions => instructions})
+  @recipe.update({:name => name, :instructions => instructions})
   redirect('/recipes/'.concat(@recipe.id().to_s()))
 end
 
