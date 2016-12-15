@@ -45,10 +45,10 @@ post('/ingredients') do
 end
 
 get('/ingredients/:id') do
+  @recipes = Recipe.all()
   @ingredient = Ingredient.find(params['id'].to_i())
   erb(:ingredient)
 end
-
 
 post('/recipes') do
   @new_recipe = Recipe.new(:name => params['name'], :instructions => params['instructions'])
@@ -88,9 +88,26 @@ post('/categories/:id') do
   erb(:category)
 end
 
+post('/ingredients/:id') do
+  @ingredient = Ingredient.find(params['id'].to_i())
+  recipe_ids = params['recipe_ids']
+  recipe_ids.each() do |recipe_id|
+    recipe = Recipe.find(recipe_id)
+    @ingredient.recipes.push(recipe)
+  end
+  @recipes = Recipe.all()
+  erb(:ingredient)
+end
+
 delete('/recipes/:id') do
   @recipe = Recipe.find(params['id'].to_i())
   @recipe.destroy()
+  redirect('/')
+end
+
+delete('/ingredients/:id') do
+  @ingredient = Ingredient.find(params['id'].to_i())
+  @ingredient.destroy()
   redirect('/')
 end
 
@@ -104,6 +121,12 @@ patch('/categories/:id') do
   @category = Category.find(params['id'].to_i())
   @category.update({:name => params['new_category']})
   redirect('/categories/'.concat(@category.id().to_s()))
+end
+
+patch('/ingredients/:id') do
+  @ingredient = Ingredient.find(params['id'].to_i())
+  @ingredient.update({:name => params['new_ingredient']})
+  redirect('/ingredients/'.concat(@ingredient.id().to_s()))
 end
 
 patch('/recipes/:id') do
