@@ -30,7 +30,7 @@
 
 ## Database Schema
 
-![alt tag](https://raw.githubusercontent.com/JonathanWThom/recipes/master/public/img/schema)
+![alt tag](https://github.com/JonathanWThom/recipes/blob/master/public/img/schema.png)
 
 ## Setup/Installation Requirements
 
