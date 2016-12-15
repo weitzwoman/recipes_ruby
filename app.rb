@@ -71,11 +71,15 @@ post('/recipes/:id') do
   @recipe = Recipe.find(params['id'].to_i())
   category_ids = params['category_ids']
   ingredient_ids = params['ingredient_ids']
+  new_ingredient = params['new_ingredient']
   if ingredient_ids
     ingredient_ids.each() do |ingredient_id|
       ingredient = Ingredient.find(ingredient_id)
       @recipe.ingredients.push(ingredient)
     end
+  end
+  if new_ingredient
+    @recipe.ingredients.create(:name => new_ingredient)
   end
   if category_ids
     category_ids.each() do |category_id|
