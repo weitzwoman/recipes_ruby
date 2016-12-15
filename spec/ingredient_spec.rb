@@ -7,7 +7,7 @@ describe(Ingredient) do
 
   it { should validate_uniqueness_of(:name)}
 
-  it('capitalizes a new ingredient') do
+  it('titleizes a new ingredient') do
     test_ingredient = Ingredient.create({:name => 'cake mix'})
     expect(test_ingredient.name()).to(eq('Cake Mix'))
   end

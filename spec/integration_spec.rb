@@ -31,13 +31,13 @@ describe('the add category route', {:type => :feature}) do
 end
 
 describe('the add recipe route', {:type => :feature}) do
-  # it('will add a new recipe') do
-  #   visit('/')
-  #   fill_in('name', :with => 'Sushi')
-  #   fill_in('instructions', :with => 'Roll it!')
-  #   click_button('Add Recipe')
-  #   expect(page).to have_content('Sushi')
-  # end
+  it('will add a new recipe') do
+    visit('/')
+    fill_in('name', :with => 'Sushi')
+    fill_in('instructions', :with => 'Roll it!')
+    click_button('Add Recipe')
+    expect(page).to have_content('Sushi')
+  end
 
   it('update recipe name') do
     test_recipe = Recipe.create(:name => "Nachos", :instructions => "bake it")
@@ -70,7 +70,59 @@ describe('the add recipe route', {:type => :feature}) do
     click_button('Add Category')
     expect(page).to have_content('SWEETS')
   end
+
+  it('adds an ingredient to a recipe') do
+    test_ingredient = Ingredient.create(:name => "Apple")
+    test_recipe = Recipe.create(:name => "Apple Pie", :instructions => "bake it")
+    visit("/recipes/#{test_recipe.id}")
+    check('Apple')
+    click_button('Add Ingredient')
+    expect(page).to have_content('Apple')
+  end
+
+  it('adds an ingredient to a recipe manually') do
+    test_recipe = Recipe.create(:name => "Cherry Pie", :instructions => "bake it")
+    visit("/recipes/#{test_recipe.id}")
+    fill_in('new_ingredient', :with => 'cherries')
+    click_button('Add New Ingredient')
+    expect(page).to have_content('Cherries')
+  end
 end
+
+describe('the ingredient route', {:type => :feature}) do
+  it('adds a new ingredient') do
+    visit('/')
+    fill_in('ingredient_name', :with => 'blackberries')
+    click_button('Add Ingredient')
+    expect(page).to have_content('Blackberries')
+  end
+
+  it('updates the ingredient name') do
+    test_ingredient = Ingredient.create(:name => 'strawberries')
+    visit("/ingredients/#{test_ingredient.id}")
+    fill_in('new_ingredient', :with => "boysenberries")
+    click_button('Update Name')
+    expect(page).to have_content('Boysenberries')
+  end
+
+  it('deletes the ingredient') do
+    test_ingredient = Ingredient.create(:name => 'eggs')
+    visit("/ingredients/#{test_ingredient.id}")
+    click_button('Delete Ingredient')
+    expect(page).to_not have_content('Eggs')
+  end
+
+  it('adds a recipe to an ingredient') do
+    test_ingredient = Ingredient.create(:name => 'eggs')
+    test_recipe = Recipe.create(:name => 'omelette', :instructions => 'pan it')
+    visit("/ingredients/#{test_ingredient.id}")
+    check('Omelette')
+    click_button('Add Recipe')
+    expect(page).to have_content('Omelette')
+  end
+  #add recipe
+end
+
 
 describe('the sort route', {:type => :feature}) do
   it('will sort the recipes by rating') do

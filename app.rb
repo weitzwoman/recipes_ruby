@@ -151,9 +151,6 @@ patch('/recipes/:id') do
   if name == ''
     name = @recipe.name()
   end
-  if ingredients == ''
-    ingredients = @recipe.ingredients()
-  end
   if instructions == ''
     instructions = @recipe.instructions()
   end
