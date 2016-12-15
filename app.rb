@@ -63,17 +63,28 @@ end
 get('/recipes/:id') do
   @recipe = Recipe.find(params['id'].to_i())
   @categories = Category.all()
+  @ingredients = Ingredient.all()
   erb(:recipe)
 end
 
 post('/recipes/:id') do
   @recipe = Recipe.find(params['id'].to_i())
   category_ids = params['category_ids']
-  category_ids.each() do |category_id|
-    category = Category.find(category_id)
-    @recipe.categories.push(category)
+  ingredient_ids = params['ingredient_ids']
+  if ingredient_ids
+    ingredient_ids.each() do |ingredient_id|
+      ingredient = Ingredient.find(ingredient_id)
+      @recipe.ingredients.push(ingredient)
+    end
+  end
+  if category_ids
+    category_ids.each() do |category_id|
+      category = Category.find(category_id)
+      @recipe.categories.push(category)
+    end
   end
   @categories = Category.all()
+  @ingredients = Ingredient.all()
   erb(:recipe)
 end
 

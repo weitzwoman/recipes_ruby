@@ -5,7 +5,7 @@
   <h4 style='color:gray'>This recipe has not been rated</h4>
 <% end %>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-4">
     <h4>Ingredients:</h4>
     <ul>
       <% @recipe.ingredients.each() do |ingredient| %>
@@ -14,16 +14,16 @@
     </ul>
 
     <h4>Instructions: </h4><h6><%= @recipe.instructions() %></h6>
-
+  </div>
+  <div class="col-md-4">
     <h4>Categories:</h4>
     <ul>
       <% @recipe.categories.each() do |category| %>
       <li><%= category.name() %></li>
       <% end %>
     </ul>
-
     <form action="/recipes/<%= @recipe.id() %>" method="post">
-      <h4>Add which categories this recipe belongs to:</h4>
+      <h4>Add categories this recipe belongs to:</h4>
       <% @categories.each() do |category| %>
         <% unless category.recipe_ids.include?(@recipe.id()) %>
           <div class="checkbox">
@@ -35,15 +35,27 @@
       <% end %>
       <button type="submit" class="btn btn-warning">Add Category</button>
     </form>
+    <form action="/recipes/<%= @recipe.id() %>" method="post">
+      <h4>Add Ingredients to this recipe:</h4>
+      <% @ingredients.each() do |ingredient| %>
+        <% unless ingredient.recipe_ids.include?(@recipe.id()) %>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="ingredient_ids[]" value="<%= ingredient.id() %>"><%= ingredient.name() %>
+            </label>
+          </div>
+        <% end %>
+      <% end %>
+      <button type="submit" class="btn btn-warning">Add Ingredient</button>
+    </form>
+
+
   </div>
-  <div class="col-md-6">
+  <div class="col-md-4">
     <form action="/recipes/<%= @recipe.id() %>" method="post">
       <input type="hidden" name="_method" value="patch">
       <div class="form-group">
         <input class="form-control" id="name" name="name" placeholder="Update Recipe Name">
-      </div>
-      <div class="form-group">
-        <input class="form-control" id="ingredients" name="ingredients" placeholder="Update Recipe Ingredients">
       </div>
       <div class="form-group">
         <input class="form-control" id="instructions" name="instructions" placeholder="Update Recipe Instructions">
