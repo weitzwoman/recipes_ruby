@@ -6,7 +6,12 @@
 <% end %>
 <div class="row">
   <div class="col-md-6">
-    <h4>Ingredients: </h4><h6><%= @recipe.ingredients() %></h6>
+    <h4>Ingredients:</h4>
+    <ul>
+      <% @recipe.ingredients.each() do |ingredient| %>
+        <li><a href="/ingredients/<%= ingredient.id() %>"><%= ingredient.name() %></a></li>
+      <% end %>
+    </ul>
 
     <h4>Instructions: </h4><h6><%= @recipe.instructions() %></h6>
 
